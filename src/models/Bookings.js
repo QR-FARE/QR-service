@@ -1,0 +1,19 @@
+const Mongoose = require('../config/mongoose');
+
+const bookingSchema = new Mongoose.Schema({
+  dateBooking: {
+    type: Date,
+  },
+  account: {
+    type: Mongoose.Schema.Types.ObjectId,
+    ref: 'Account',
+  },
+  tickets: {
+    type: Mongoose.Schema.Types.ObjectId,
+    ref: 'Tickets',
+  },
+});
+
+const Booking = Mongoose.model('Booking', bookingSchema);
+
+module.exports = Booking;
