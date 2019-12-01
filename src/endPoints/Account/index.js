@@ -10,7 +10,7 @@ const updateAccount = require('./updateAccount');
 const getAccount = require('./getAccount');
 
 accountRouter.use(
-  ['/deleteAccount', '/updateAccount', '/createAccount', '/getAccount'],
+  ['/deleteAccount', '/updateAccount', '/getAccount'],
   jwt({ secret: process.env.QR_SECRET }),
 );
 
@@ -20,32 +20,31 @@ accountRouter.post('/createAccount', async (req, res) => {
   res.send(newAccount);
 });
 
-accountRouter.get('/getAccount/:userName', async (req, res) => {
-  if (req.user || req.user.userName) {
+accountRouter.get('/getAccount', async (req, res) => {
+  if (!req.user) {
     throw HttpError.Unauthorized();
   }
-  const username = req.params.userName;
-  const account = await getAccount(username);
+  const { userName } = req.user.verifyAccount;
+  const account = await getAccount(userName);
   res.send(account);
 });
 
-accountRouter.patch('/updateAccount/:username'),
-  async (req, res) => {
-    if (req.user || req.user.userName) {
-      throw HttpError.Unauthorized();
-    }
-    const account = req.body;
-    const userName = req.params.userName;
-    const updatedAccount = await updateAccount(account, userName);
-    res.send(updatedAccount);
-  };
-
-accountRouter.delete('/deleteAccount/:userName', async (req, res) => {
-  if (req.user || req.user.userName) {
+accountRouter.patch('/updateAccount/:_id', async (req, res) => {
+  if (!req.user || !req.user.verifyAccount) {
     throw HttpError.Unauthorized();
   }
-  const userName = req.params.userName;
-  const deletedAccount = await deleteAccount(userName);
+  const account = req.body;
+  const { _id } = req.params;
+  const updatedAccount = await updateAccount(account, _id);
+  res.send(updatedAccount);
+});
+
+accountRouter.delete('/deleteAccount/:_id', async (req, res) => {
+  if (!req.user || !req.user.userName) {
+    throw HttpError.Unauthorized();
+  }
+  const { _id } = req.params;
+  const deletedAccount = await deleteAccount(_id);
   res.send(deletedAccount);
 });
 

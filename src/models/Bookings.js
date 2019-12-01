@@ -8,9 +8,15 @@ const bookingSchema = new Mongoose.Schema({
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'Account',
   },
-  tickets: {
+  ticket: {
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'Tickets',
+  },
+  nombre: {
+    type: Number,
+  },
+  metadata: {
+    type: Object,
   },
 });
 

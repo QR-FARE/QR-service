@@ -14,7 +14,7 @@ const accountSchema = new Mongoose.Schema({
     type: String,
   },
   structure: {
-    type: Mongoose.Schema.types.ObjectId,
+    type: Mongoose.Schema.Types.ObjectId,
     ref: 'Structure',
   },
 });

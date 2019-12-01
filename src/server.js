@@ -8,10 +8,10 @@ const bodyParser = require('body-parser');
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/qr-fare', endPoints);
+app.use('/qr_fare', endPoints);
 
 module.exports = {
-  app() {
+  start() {
     app.listen(process.env.PORT, () =>
       console.log('Server running on ', process.env.PORT),
     );

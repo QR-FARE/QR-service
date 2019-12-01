@@ -1,7 +1,7 @@
 const Account = require('../../models/Account');
 
-async function getAccount(idAccount) {
-  const InstanceAccount = await Account.find({ _id: idAccount });
+async function getAccount(userName) {
+  const InstanceAccount = await Account.find({ userName });
   return InstanceAccount;
 }
 

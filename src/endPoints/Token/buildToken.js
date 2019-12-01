@@ -6,10 +6,10 @@ const HttpError = require('http-errors');
 
 async function buildToken(account) {
   const key = randomKey(100);
-  const verifyAccount = await Account.find({ userName: account.userName });
-  if (verifyAccount || verifyAccount.password) {
+  const verifyAccount = await Account.findOne({ userName: account.userName });
+  if (verifyAccount) {
     if (hashage.verify(account.password, verifyAccount.password)) {
-      const token = jwt.sign({ account, key }, process.env.QR_SECRET, {
+      const token = jwt.sign({ verifyAccount, key }, process.env.QR_SECRET, {
         expiresIn: '2d',
         issuer: 'auth',
       });
@@ -18,6 +18,8 @@ async function buildToken(account) {
       throw new HttpError.NotFound("Password isn't good");
     }
   } else {
-    new HttpError.NotFound('No Account');
+    throw new HttpError.NotFound('No Account');
   }
 }
+
+module.exports = buildToken;
