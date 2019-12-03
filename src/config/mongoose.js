@@ -1,6 +1,6 @@
 const Mongoose = require('mongoose');
 
-Mongoose.connect(process.env.MONGODB_URI || process.env.MONGODB_URL, {
+Mongoose.connect(process.env.MONGO_URI || process.env.MONGODB_URL, {
   useNewUrlParser: true,
   connectTimeoutMS: 24000,
   socketTimeoutMS: 24000,
