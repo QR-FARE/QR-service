@@ -1,6 +1,6 @@
 const Mongoose = require('mongoose');
 
-Mongoose.connect(process.env.MONGO_URI, {
+Mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/QR-FARE', {
   useNewUrlParser: true,
   connectTimeoutMS: 24000,
   socketTimeoutMS: 24000,
