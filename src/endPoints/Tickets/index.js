@@ -31,7 +31,8 @@ ticketRouter.get('/getTickets', async (req, res) => {
   if (
     !req.user ||
     !req.user.verifyAccount ||
-    !req.user.verifyAccount.structure
+    !req.user.verifyAccount.structure ||
+    !req.user.verifyAccount.userRole
   ) {
     throw HttpError.Unauthorized();
   }

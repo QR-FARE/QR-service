@@ -7,9 +7,10 @@ const bookingRouter = new Router();
 const booking = require('./booking');
 const discardBooking = require('./discardBooking');
 const getBookings = require('./getBookings');
+const getAllBookings = require('./getAllBookings');
 
 bookingRouter.use(
-  ['/booking', '/discardBooking', '/getBookings'],
+  ['/booking', '/discardBooking', '/getBookings', '/getAllBookings'],
   jwt({ secret: process.env.QR_SECRET }),
 );
 
@@ -38,6 +39,16 @@ bookingRouter.delete('/discardBooking/:_id', async (req, res) => {
   const { _id } = req.params;
   const bookingToDiscard = await discardBooking(_id);
   res.send(bookingToDiscard);
+});
+
+bookingRouter.get('/getAllBookings/:ticket', async (req, res) => {
+  if (!req.user || !req.user.verifyAccount) {
+    throw HttpError.Unauthorized();
+  }
+
+  const { ticket } = req.params;
+  const bookings = await getAllBookings(ticket);
+  res.send(bookings);
 });
 
 module.exports = bookingRouter;

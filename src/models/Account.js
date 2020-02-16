@@ -13,6 +13,13 @@ const accountSchema = new Mongoose.Schema({
   password: {
     type: String,
   },
+  phone: {
+    type: String,
+  },
+  userRole: {
+    default: 'simple',
+    type: String,
+  },
   structure: {
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'Structure',

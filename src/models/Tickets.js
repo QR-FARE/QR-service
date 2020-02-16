@@ -4,6 +4,13 @@ const ticketSchema = new Mongoose.Schema({
   name: {
     type: String,
   },
+  idTicket: {
+    type: Mongoose.Schema.Types.ObjectId,
+    ref: 'Account',
+  },
+  phoneNumber: {
+    type: String,
+  },
   dateEvent: {
     type: Date,
   },
@@ -14,6 +21,9 @@ const ticketSchema = new Mongoose.Schema({
     type: Date,
   },
   address: {
+    type: String,
+  },
+  typeEvent: {
     type: String,
   },
   structure: {

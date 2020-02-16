@@ -12,12 +12,14 @@ const bookingSchema = new Mongoose.Schema({
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'Tickets',
   },
-  nombre: {
-    type: Number,
+  phone: {
+    type: String,
   },
-  metadata: {
-    type: Object,
-  },
+  metadatas: [
+    {
+      type: Object,
+    },
+  ],
 });
 
 const Booking = Mongoose.model('Booking', bookingSchema);
